@@ -99,14 +99,16 @@
   _.uniq = function(array, isSorted, iterator) {
     let tempObject = {};
     for (let i = 0; i < array.length; i++) {
-      if (iterator) {
-        tempObject[iterator(array[i])] = array[i];        
+      if (arguments[2] !== undefined) {
+        if (tempObject[iterator(array[i])] === undefined) {
+          tempObject[iterator(array[i])] = array[i];
+        }
+      } else {
+        tempObject[array[i]] = array[i];
       }
-      tempObject[array[i]] = array[i];
     }
     return Object.values(tempObject);
   };
-
 
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
