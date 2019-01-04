@@ -255,7 +255,6 @@
         }
       }
     }
-    console.log(obj);
     return obj;
   };
 
@@ -300,6 +299,17 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var result = {};
+    return function() {
+      let array = [];
+      for (let i = 0; i < arguments.length; i++) {
+        array.push(arguments[i]);
+      }
+      if (!result[array.join('-')]) {
+        result[array.join('-')] = func.apply(this, arguments);
+      }
+      return result[array.join('-')];
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -309,6 +319,15 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    let array = [];
+    if (arguments.length > 2) {
+      for (let i = 2; i < arguments.length; i++) {
+        array.push(arguments[i]);
+      }
+    }
+    setTimeout(function(){
+      func(...array);
+    }, wait);
   };
 
 
