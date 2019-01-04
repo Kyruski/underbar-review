@@ -147,9 +147,7 @@
       });
 
       it('should fail for a set containing no matching values', function() {
-        // Replace this line with an `expect` statement that tests
-        // the behavior described by the `it` string
-        throw new Error('This test is missing.');
+        expect(_.some([false, null, 0], _.identity)).to.be.false;
       });
 
       it('should pass for a collection containing one matching value', function() {
@@ -187,9 +185,10 @@
       });
 
       it('should override properties found on the destination', function() {
-        // Replace this line with an `expect` statement that tests
-        // the behavior described by the `it` string
-        throw new Error('This test is missing.');
+        var destination = { a: 'a'};
+        var source = { a: 'b' };
+        var extended = _.extend(destination, source);
+        expect(extended.a).to.equal('a');
       });
 
       it('should not override properties not found in the source', function() {
