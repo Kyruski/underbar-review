@@ -237,11 +237,26 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    let object = Object.assign({}, ...arguments);
+    return object;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    let array = [];
+    for (let i = 1; i < arguments.length; i++) {
+      array.push(arguments[i]);
+    }
+    for (let i = 0; i < array.length; i++) {
+      for (let key in array[i]) {
+        if (obj[key] === undefined) {
+          obj[key] = array[i][key];
+        }
+      }
+    }
+    console.log(obj);
+    return obj;
   };
 
 
